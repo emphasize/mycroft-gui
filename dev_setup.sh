@@ -82,8 +82,8 @@ manjaro() {
     echo "Following Packages Will Be Installed: cmake extra-cmake-modules kio kio-extras plasma-framework qt5-websockets qt5-webview qt5-declarative qt5-multimedia qt5-quickcontrols2 qt5-webengine qt5-base"
     echo ""
     echo "Please Enter Authentication For Installing System Dependencies"
-    yes | sudo pacman -S git cmake extra-cmake-modules kio kio-extras plasma-framework qt5-websockets qt5-webview qt5-declarative qt5-multimedia qt5-quickcontrols2 qt5-webengine qt5-base
-    build_gui   
+    sudo pacman -Sy --needed --noconfirm git cmake extra-cmake-modules kio kio-extras plasma-framework qt5-websockets qt5-webview qt5-declarative qt5-multimedia qt5-quickcontrols2 qt5-webengine qt5-base
+    build_gui
 }
 
 alpine() {
@@ -93,7 +93,7 @@ alpine() {
     echo ""
     echo "Please Enter Authentication For Installing System Dependencies"
     yes | sudo apk add alpine-sdk cmake extra-cmake-modules kio-dev kio-extras-dev plasma-framework-dev qt5-qtwebsockets-dev qt5-qtwebview-dev qt5-qtdeclarative-dev qt5-qtmultimedia-dev qt5-qtquickcontrols2-dev qt5-qtwebengine-dev qt5-qtbase-dev
-    build_gui   
+    build_gui
 
 }
 
@@ -118,11 +118,11 @@ others () {
       echo "You must manually install the following packages for this platform"
       echo "cmake extra-cmake-modules kio kio-extras plasma-framework qt5-websockets qt5-webview qt5-declarative qt5-multimedia qt5-quickcontrols2 qt5-webengine qt5-base"
       echo "Consider contributing support for your platform by adding it to this script"
-      
+
       echo "1. Continue Installation"
       echo "2. Return To Previous Menu"
       echo "3. Exit"
-      
+
       local additional_choice
       read -p "Enter choice [ 1 - 3 ] " additional_choice
       case $additional_choice in
@@ -163,7 +163,7 @@ function install_lottie() {
     make
     sudo make install
     complete_installer
-}   
+}
 
 function complete_installer() {
     echo " "
@@ -172,7 +172,7 @@ function complete_installer() {
             sudo mkdir /etc/mycroft
         fi
 
-cat <<EOF | sudo tee /etc/mycroft/mycroft.conf 
+cat <<EOF | sudo tee /etc/mycroft/mycroft.conf
 {
     "enclosure": {
         "platform": "mycroft_mark_2"
@@ -181,7 +181,7 @@ cat <<EOF | sudo tee /etc/mycroft/mycroft.conf
 EOF
 
     fi
-    
+
     if [[ -f /etc/mycroft/mycroft.conf ]] ; then
         echo "Found an existing Mycroft System Level Configuration at /etc/mycroft/mycroft.conf"
         echo "Please add the following enclosure settings manually to existing configuration to ensure working setup:"
@@ -190,7 +190,7 @@ EOF
         echo '     "platform": "mycroft_mark_2"'
         echo '}'
         echo ""
-    fi    
+    fi
     echo "Installation complete!"
     echo "To run, invoke:  mycroft-gui-app"
     exit 0
